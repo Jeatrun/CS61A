@@ -451,7 +451,15 @@ def bacon_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 6  # Replace this statement
+    #1.take the free bacon first
+    free_bacon_score=free_bacon(opponent_score)
+    #2.if the score of free bacon reach at least `cutoff` points,then return 0
+    if free_bacon_score >=cutoff:
+        
+        return 0
+    #3.otherwise return NUM_ROLLS
+    else:
+        return num_rolls 
     # END PROBLEM 10
 
 
@@ -461,7 +469,15 @@ def extra_turn_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 6  # Replace this statement
+    #1.take the free bacon first
+    score+=free_bacon(opponent_score)
+    #2.if the score reach 1 of those,then return 0
+    if swine_align(score,opponent_score) or pig_pass(score,opponent_score)or not bacon_strategy(score, opponent_score, cutoff, num_rolls):
+        return 0
+    #3.otherwise return NUM_ROLLS
+    else:
+        return num_rolls 
+
     # END PROBLEM 11
 
 
