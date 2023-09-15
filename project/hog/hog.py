@@ -196,16 +196,20 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             score0+= take_turn(num_rolls, score1, dice)
             if not extra_turn(score0,score1):
                 who = other(who)
-            
+
         else:
             num_rolls = strategy1(score1, score0)
             score1 += take_turn(num_rolls, score0, dice)
             if not extra_turn(score1,score0):
                 who = other(who)
+        say=say(score0,score1)
+        
+        
 
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
+
     "*** YOUR CODE HERE ***"
     # END PROBLEM 6
     return score0, score1
@@ -291,6 +295,30 @@ def announce_highest(who, last_score=0, running_high=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    def say(score0,score1):
+        score=0
+
+        if who==0:
+            score=score0
+        else:
+            score=score1
+
+        gains=score-last_score
+
+        if score>last_score and gains>running_high:
+            new_running_high=gains
+            print(gains,"point(s)! The most yet for Player",who)
+        else:
+            new_running_high=running_high
+        new_last_score=score
+        
+        return announce_highest(who,new_last_score,new_running_high)    
+    return say
+
+
+
+
+
     # END PROBLEM 7
 
 
@@ -331,6 +359,16 @@ def make_averaged(original_function, trials_count=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def make_average_and_return(*args):
+        result,times=0,0
+        while times<trials_count:
+            result+=original_function(*args)
+            times+=1
+        return result/trials_count
+    return make_average_and_return
+
+
+
     # END PROBLEM 8
 
 
@@ -345,6 +383,25 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    
+    
+    num_rolls,average_score=1,0
+    max_average,max_num_rolls=0,0
+    
+    #1.rolling dice from 1 to 10
+    while num_rolls<=10:               
+        #2.get the average score for each loop
+        average=make_averaged(roll_dice,trials_count)
+        average_score=average(num_rolls,dice)
+        
+        
+        #3.if the average score is the max one and the number  of dice is the min one,then return 
+        if average_score > max_average and num_rolls>max_num_rolls:
+            max_average=average_score
+            max_num_rolls=num_rolls
+        num_rolls+=1    
+    return max_num_rolls    
+        
     # END PROBLEM 9
 
 
