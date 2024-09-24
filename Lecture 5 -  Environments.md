@@ -31,7 +31,7 @@
   """example:Repeat"""
   def repeat(f,x):
       while f(x)!=x:
-          x=f(X)
+          x=f(x)
       return x
   
   def g(y):
