@@ -79,7 +79,7 @@
 
   ```python
   def squre(x):
-  	return x*x
+      return x*x
   
   def triple(x):
       return 3*x
@@ -91,7 +91,7 @@
   27
   """
       def h(x):
-          return g(f(x)
+          return g(f(x))
       return h
   ```
 
